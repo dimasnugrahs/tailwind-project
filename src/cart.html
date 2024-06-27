@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart - Project Tailwind</title>
+    <link href="./output.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body class="bg-[#1D267D] font-sans">
+    
+    <header class="bg-indigo-950">
+        <div class="container mx-auto py-2 flex flex-wrap justify-between items-center">
+            <div class="flex items-center">
+                <a href="index.html"><img src="/images/icon-store.png" class="w-24 " alt=""></a>
+                <h1 class="text-xl text-white font-bold ml-6">
+                    E-Commerce Buku
+                </h1>
+            </div>
+            <nav class="flex">
+                <div x-data="{ isOpened: false, openedWithKeyboard: false }" @keydown.esc.window="isOpened = false, openedWithKeyboard = false" class="relative hidden lg:block">
+                    <a href="index.html"><i class="fa-solid fa-gear text-xl mx-5" style="color: #ffffff;"></i></a>
+                    <a href="product.html"><i class="fa-solid fa-magnifying-glass text-xl mx-5" style="color: #ffffff;"></i></a>
+                    <a href="cart.html"><i class="fa-solid fa-cart-shopping text-xl mx-5" style="color: #ffffff;"></i></a>
+                
+                    <!-- Toggle Button -->
+                    <button type="button" @click="isOpened = ! isOpened" @keydown.space.prevent="openedWithKeyboard = true" @keydown.enter.prevent="openedWithKeyboard = true" @keydown.down.prevent="openedWithKeyboard = true" class="inline-flex cursor-pointer" :class="isOpened || openedWithKeyboard ? 'text-black dark:text-white' : 'text-slate-700 dark:text-slate-300'" :aria-expanded="isOpened || openedWithKeyboard" aria-haspopup="true">
+                        <i class="fa-solid fa-circle-user text-xl mx-5" style="color: #ffffff;"></i>      
+                    </button>
+                    <!-- Dropdown Menu -->
+                    <div x-cloak x-show="isOpened || openedWithKeyboard" x-transition x-trap="openedWithKeyboard" @click.outside="isOpened = false, openedWithKeyboard = false" @keydown.down.prevent="$focus.wrap().next()" @keydown.up.prevent="$focus.wrap().previous()" class="absolute top-11 flex w-full min-w-[12rem] flex-col divide-y divide-slate-300 overflow-hidden rounded-xl bg-[#1D387D] dark:divide-white  dark:bg-[#1D387D]" role="menu">
+                        <div class="flex flex-col py-1.5"> 
+                            <a class="px-4 py-2 text-sm text-white" role="menuitem">example@email.com</a>
+                        </div>
+                        <div class="flex flex-col py-1.5"> 
+                            <a href="product.html" class="px-4 py-2 text-sm text-white hover:bg-[#3253a5]" role="menuitem">All eBooks</a>
+                            <a href="profile.html" class="px-4 py-2 text-sm text-white hover:bg-[#3253a5]" role="menuitem">Settings</a>
+                        </div>
+                        <div class="flex flex-col py-1.5"> 
+                            <a href="#" class="px-4 py-2 text-sm text-white hover:bg-[#3253a5]" role="menuitem">Sign Out</a>
+                        </div>
+                    </div> 
+                </div>            
+            </nav>
+            
+        </div>
+        <div class="lg:hidden" x-data="{showMenu : false}">
+            <button @click.prevent="showMenu = !showMenu " class="px-2 py-4 flex justify-between text-white">
+                <svg x-show="!showMenu" class="w-6 h-6 mr-2" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+                    <path d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+                <svg x-show="showMenu" class="w-6 h-6 mr-2" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M6 18L18 6M6 6l12 12"></path></svg>
+                Menu
+            </button>
+            <div x-show="showMenu">
+                <!-- <button @click.prevent="showMenu = !showMenu " class="px-2 py-4 font-bold flex justify-between text-blue-900 w-full border-b border-blue-900 bg-white">
+                    Menu
+                    <svg class="w-6 h-6" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+                        <path d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button> -->
+                <nav class="flex flex-col">
+                    <a href="#" class="px-2 py-4 bg-white flex justify-between w-full border-b border-blue-900 hover:text-blue-100 hover:bg-blue-600">
+                        Home
+                        <svg class="w-6 h-6" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M9 5l7 7-7 7"></path></svg>    
+                    </a>
+                    <a href="#" class="px-2 py-4 bg-white flex justify-between w-full border-b border-blue-900 hover:text-blue-100 hover:bg-blue-600">
+                        Product
+                        <svg class="w-6 h-6" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M9 5l7 7-7 7"></path></svg>    
+                    </a>
+                    <a href="#" class="px-2 py-4 font-bold bg-white flex justify-between w-full border-b border-blue-900 hover:text-blue-100 hover:bg-blue-600">
+                        Cart
+                        <svg class="w-6 h-6" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M9 5l7 7-7 7"></path></svg>    
+                    </a>
+                    <a href="#" class="px-2 py-4 bg-white flex justify-between w-full border-b border-blue-900 hover:text-blue-100 hover:bg-blue-600">
+                        Settings
+                        <svg class="w-6 h-6" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M9 5l7 7-7 7"></path></svg>    
+                    </a>
+                    <a href="#" class="px-2 py-4 bg-white flex justify-between w-full border-b border-blue-900 hover:text-blue-100 hover:bg-blue-600">
+                        Sign Out
+                        <svg class="w-6 h-6" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M9 5l7 7-7 7"></path></svg>    
+                    </a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <div class="container mx-auto flex justify-center flex-col lg:flex-row mt-20 px-4">
+        <div class="header-store-featured">
+            <h2 class="font-semibold text-2xl text-white">My Cart (3)</h2>
+        </div>
+    </div>
+
+    <div class="container mx-auto flex flex-col lg:flex-row px-4">
+        <main class="w-full lg:full mt-4 lg:mt-0 lg:ml-4">
+            <div class="grid grid-cols-1 md:grid:cols-1 lg:grid-cols-1 gap-10">
+                <div class="">
+                    <h2 class="font-semibold text-white mt-6 mb-4 mx-14 flex justify-between border-b-2">
+                        <div class="flex space-x-2">
+                            <img src="/images/book-store.jpg" class="w-40 mb-2" alt="">
+                            <div>
+                                <p class="font-medium text-lg">Perahu Kertas</p>
+                                <p class="text-[#DE6363]">Remove</p>
+                            </div>
+                        </div>
+                        <div class="items-center text-lg pt-8">$99</div>
+                    </h2>
+                    <h2 class="font-semibold text-white mt-6 mb-4 mx-14 flex justify-between border-b-2">
+                        <div class="flex space-x-2">
+                            <img src="/images/book-store.jpg" class="w-40 mb-2" alt="">
+                            <div>
+                                <p class="font-medium text-lg">Perahu Kertas</p>
+                                <p class="text-[#DE6363]">Remove</p>
+                            </div>
+                        </div>
+                        <div class="items-center text-lg pt-8">$99</div>
+                    </h2>
+                    <h2 class="font-semibold text-white mt-6 mb-4 mx-14 flex justify-between border-b-2">
+                        <div class="flex space-x-2">
+                            <img src="/images/book-store.jpg" class="w-40 mb-2" alt="">
+                            <div>
+                                <p class="font-medium text-lg">Perahu Kertas</p>
+                                <p class="text-[#DE6363]">Remove</p>
+                            </div>
+                        </div>
+                        <div class="items-center text-lg pt-8">$99</div>
+                    </h2>
+                    <h2 class="font-semibold text-white mt-20 mb-14 mx-14 flex justify-between border-b-2 text-lg">
+                        Total Amount
+                        <span> $297</span>
+                    </h2>
+                </div>
+            </div>
+            <div class="flex justify-end px-14 mb-40">
+                <a href="#" class="px-8 py-2 bg-[#2F58CD] hover:bg-blue-500 text-white rounded-lg text-md">PLACE TO ORDER <i class="fa-solid fa-arrow-right ml-4" style="color: #ffffff;"></i></a>
+            </div>
+        </main>
+    </div>
+
+    <footer class="mt-12 px-4 border-t-2 border-solid-white">
+        <div class="container mx-auto py-3 flex justify-between items-center ">
+            <div class="flex items-center">
+                <h1 class=" text-white">
+                    &copy; 2023 Cek Toko Sebelah. All Right Reserved.
+                </h1>
+            </div>
+            <nav class="flex">
+                <a href="#"><i class="fa-brands fa-square-instagram text-4xl mx-5" style="color: #ffffff;"></i></a>
+                <a href="#"><i class="fa-brands fa-square-twitter text-4xl mx-5" style="color: #ffffff;"></i></a>
+                <a href="#"><i class="fa-brands fa-square-github text-4xl mx-5" style="color: #ffffff;"></i></a>
+            </nav>
+        </div>
+    </footer>
+
+    <script src="<https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.3.5/dist/alpine.min.js>" defer></script>
+</body>
+</html>
